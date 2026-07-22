@@ -42,3 +42,14 @@ Cada sesión de la extensión debe:
         - - Duda sin confirmar: existen alertas nombradas 'CLON 88' y 'CLON 99' en vez de clon8/clon9, no se sabe si es nomenclatura real o error de tipeo antiguo. Pendiente confirmar con Fer.
           - - Reporte todo esto a Claude Code en su sesion (Fix consensus exit minimum profit floor) y quede a la espera de que indique si sigo comparando codigo fuente linea por linea (AROON CLON4 vs AROON SOLO) o si primero confirmamos con Fer la duda del EMA200/30m.
             - 
+
+
+2026-07-22 (sesion 4): Claude Code confirmo la causa raiz cruzando mi hallazgo de TradingView con el codigo del servidor (WEBHOOK.py, lineas 536-538):
+
+- Cuando llega un voto de cualquier bot, el servidor chequea CONFIG.FILTRO_EMA200_ACTIVO. Si esta en True, el voto se rechaza de inmediato (status: blocked_ema200) en vez de sumarse al conteo de consenso.
+- - Ese flag solo se actualiza cuando llega la alerta especial EMA200 (la que corre en 30m), mientras que los votos normales llegan cada 1m. Esto puede dejar pasar hasta 30 minutos con un valor de flag desactualizado, descartando votos que en teoria deberian contar.
+  - - Claude Code conecto esto con un bug ya documentado antes: un hueco de 12.6 horas en el heartbeat del filtro EMA200 de clon4, que se habia dejado sin tocar a proposito como base de comparacion limpia. La hipotesis es que el desfase de timeframe (30m vs 1m) es la causa de ese hueco.
+    - - Aclaracion de Fer sobre el mecanismo real: la alerta de EMA200 se recibe en clon4 cada 1 minuto, pero esta activada/calculada en el timeframe de 30m. Clon4 actua en consecuencia segun el valor que tenga esa alerta en cada momento (no es que la alerta en si solo llegue una vez cada 30 minutos).
+      - - Claude Code recomienda priorizar preguntarle a Fer si el timeframe de 30m en la alerta EMA200 fue una decision de diseno intencional o un descuido, antes de tocar nada en Pine. Bajo prioridad por ahora: comparar linea por linea AROON CLON4 vs AROON SOLO, ya que la explicacion mecanica ya quedo confirmada.
+        - - No toque ni edite ningun script ni alerta, solo lectura y coordinacion.
+          - 
