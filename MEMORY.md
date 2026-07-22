@@ -53,3 +53,12 @@ Cada sesión de la extensión debe:
       - - Claude Code recomienda priorizar preguntarle a Fer si el timeframe de 30m en la alerta EMA200 fue una decision de diseno intencional o un descuido, antes de tocar nada en Pine. Bajo prioridad por ahora: comparar linea por linea AROON CLON4 vs AROON SOLO, ya que la explicacion mecanica ya quedo confirmada.
         - - No toque ni edite ningun script ni alerta, solo lectura y coordinacion.
           - 
+
+
+2026-07-22 (sesion 5): Envie la aclaracion de Fer sobre el mecanismo EMA200 a Claude Code. Claude Code reviso su hipotesis anterior:
+
+- Con el mecanismo correcto (mensaje llega cada 1 min, pero el valor que trae solo cambia cada 30 min al recalcularse en ese timeframe), Claude Code retiro parcialmente la conexion que habia hecho con el hueco de heartbeat de 12.6 horas ya documentado: si el mensaje llega cada minuto sin falta, un valor desactualizado hasta 30 min no alcanza para explicar un hueco de 12.6 horas por si solo. Sugiere que ese hueco podria ser el filtro funcionando correctamente durante un tramo bajista real y sostenido, no necesariamente un bug.
+- - - Lo que si queda firme: cada voto de clon4 se evalua contra un valor de EMA200 que puede tener hasta 30 minutos de desactualizacion, lo cual alcanza para explicar el desfase de consenso de horas entre boot y clon4 en ventanas cortas.
+    - - - Claude Code actualizo su propia memoria del proyecto (project_pine_script_hallazgos.md) para reflejar esta correccion.
+        - - - Pendiente: preguntarle a Fer si el timeframe de 30m del EMA200 fue diseno intencional o descuido, antes de tocar nada en Pine.
+            - 
