@@ -62,3 +62,14 @@ Cada sesión de la extensión debe:
     - - - Claude Code actualizo su propia memoria del proyecto (project_pine_script_hallazgos.md) para reflejar esta correccion.
         - - - Pendiente: preguntarle a Fer si el timeframe de 30m del EMA200 fue diseno intencional o descuido, antes de tocar nada en Pine.
             - 
+
+
+2026-07-22 (sesion 6): Fer hablo directamente con Claude Code en su sesion compartida sobre el EMA200/clon4. Resumen de lo que verifique alli:
+
+- Fer le conto a Code que la idea de clon14 nacio justamente para reemplazar a clon4 por este problema, y le pidio verificar en la base de datos real si el valor de EMA200 llega cada 1 minuto o no (en vez de suponer).
+- - Code reviso la tabla historica real de EMA200 de clon4: encontro que en los datos viejos la mediana real de llegada era 60 minutos (no 1 minuto), con el mismo hueco de 12.6 horas ya documentado como bug de conectividad.
+  - - Fer aclaro que esa info era vieja y pidio revisar el ultimo dia. Code confirmo: en las ultimas 24h ya no hay huecos grandes (maximo 89 minutos entre registros), la confiabilidad de entrega se reparo. Pero la frecuencia real sigue siendo aproximadamente cada 1 hora, no cada 1 minuto.
+    - - Fer razono con Code: un EMA200 no tendria cambios importantes cada 1 minuto, por eso probablemente se decidio que la cadencia fuera cada 1 hora. Code coincidio: un EMA200 sobre velas de 30m no puede cambiar mas seguido que cada 30m, asi que mandarlo cada 1 minuto seria puro ruido repetido; pasar el heartbeat a 1h es una decision de diseno razonable para un filtro de regimen amplio, no algo que necesite precision al segundo.
+      - - Conclusion que Code propuso guardar como cierre del hallazgo (no confirmada aun por Fer en el momento en que revise esto): frecuencia horaria = diseno correcto; el problema real y ya reparado era la confiabilidad de entrega (el hueco de 12.6h), no la frecuencia; sin conexion adicional con el hueco viejo salvo que era el mismo bug de conectividad, ya resuelto.
+        - - No participe de esa conversacion puntual entre Fer y Code (fue directa entre ellos), solo la lei para mantenerme al tanto y dejar registro.
+          - 
