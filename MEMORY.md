@@ -30,3 +30,15 @@ Cada sesión de la extensión debe:
                    3.   3. ¿Hay configuración de "una alerta por barra" vs "una alerta por cada vez que se cumple la condición" que explique el desfase de timing?
                         4. - Próximo paso: aún no empecé a revisar el código Pine en TradingView para responder estas preguntas; queda pendiente para la próxima sesión.
                            - 
+
+
+2026-07-22 (sesion 3): Primera investigacion tecnica en TradingView sobre la pregunta 1/2/3 que pidio Claude Code (boot vs clon4 desfase de consenso). Hallazgos con evidencia directa (solo lectura, no edite nada):
+
+- Mapeo de pantallas de TV dado por Fer: pantalla '0 ORIGINAL' aloja alertas de boot, clon, clon2, clon3, clon12, clon13, clon14; pantalla '4' aloja clon4; pantalla '5' aloja clon5, clon6, clon8, clon9, clon10. Son 3 pantallas casi identicas en indicadores, cada una dedicada solo a mandar alertas de un subconjunto de bots.
+- - Confirmado: NO hay un script Pine compartido. Cada bot tiene su propia copia de archivo por estrategia (ej. 'AROON CLON4' v14.0 editado 19.05.2026, 'AROON CLON6' v6.0 editado 19.05.2026, 'AROON SOLO' v13.0 editado 12.05.2026, probablemente esta ultima es la de boot). Mismo patron para RSI ENVE, MIN TEN, OTROS, BB+1, VI-0 (todas con sufijo CLON4 como archivos separados).
+  - - Las copias divergen en version y fecha de edicion entre si, lo que confirma que no se actualizan de forma sincronizada.
+    - - Confirmado el comportamiento de 'foto fija': las alertas de CLON 5 en el panel de Alertas tienen fechas de creacion/edicion muy distintas (16, 21 y 22 de julio 2026) para el mismo bot.
+      - - Diferencia de timeframe real: CLON 5 corre en 30m; BOOT, CLON2, CLON3, CLON4, CLON13, CLON14 y CLON88 corren en 1m. CLON4 tiene ademas una alerta separada 'EMA200 N CLON4' en 30m, distinta de sus otras alertas de voto en 1m, posible causa concreta del desfase de consenso boot/clon4 que reporto Claude Code (el filtro EMA200 se re-evalua cada 30 min mientras los votos llegan cada 1 min).
+        - - Duda sin confirmar: existen alertas nombradas 'CLON 88' y 'CLON 99' en vez de clon8/clon9, no se sabe si es nomenclatura real o error de tipeo antiguo. Pendiente confirmar con Fer.
+          - - Reporte todo esto a Claude Code en su sesion (Fix consensus exit minimum profit floor) y quede a la espera de que indique si sigo comparando codigo fuente linea por linea (AROON CLON4 vs AROON SOLO) o si primero confirmamos con Fer la duda del EMA200/30m.
+            - 
