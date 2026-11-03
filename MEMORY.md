@@ -98,3 +98,11 @@ Contexto: discusión sobre probabilidad de encontrar alfa real en sistemas de tr
 **Ojo con esto**: había una actualización del CLI pendiente ("Update installed · /restart to apply"). Se intentó `/restart` pensando que podía ayudar, pero el propio sistema lo rechazó: *"Can't restart while Remote Control is connected"* — es decir, una vez reconectado, reiniciar corta la conexión que se acaba de restablecer. **No reiniciar justo después de reconectar** — dejar la actualización pendiente para la próxima vez que haya que reiniciar por otro motivo.
 
 **Resumen para diagnóstico futuro**: si 795 aparece desconectada, chequear en este orden — (1) `systemctl status claude-persistent` (¿está `active`?), (2) `tmux capture-pane` (no `has-session`) para ver el mensaje real de error, (3) según lo que diga: pantalla de confirmación trabada → `Escape` o `Enter` según corresponda; token OAuth vencido → `/login` + esperar propagación; proceso realmente caído → recién ahí `systemctl restart`.
+
+## PENDIENTE ACTIVO — Simulador forward TSMOM-canasta
+
+Iniciado: **2026-11-03** (confirmado por Fer, "menos de 24hs" de arranque al momento de anotar esto). Es el simulador forward de **riesgo cero** que recomendó Code tras el hallazgo de sesión 13 (script semanal + libro simulado, sin webhooks ni órdenes reales — no se verificó en esta sesión que sea exactamente esa implementación, pendiente confirmar con Code).
+
+**No chequear resultados antes de varias semanas** — el rebalanceo es semanal, así que con menos de 7 días de datos no hay ni una sola rotación completa todavía. Antes de pedir resultados, confirmar con Code: (1) qué es exactamente lo que está corriendo, (2) cada cuánto rebalancea en la práctica, (3) cuándo tendría sentido pedir el primer corte de datos (probablemente no antes de 4-6 semanas para tener varias rotaciones).
+
+Pendiente aparte, sin resolver: el retorno absoluto (CAGR %) de TSMOM-canasta en el backtest in-sample (nunca se pidió, solo tenemos el Sharpe) — útil para comparar contra alternativas simples (holdear, staking) mientras se espera el forward.
