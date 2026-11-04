@@ -106,3 +106,11 @@ Iniciado: **2026-11-03** (confirmado por Fer, "menos de 24hs" de arranque al mom
 **No chequear resultados antes de varias semanas** — el rebalanceo es semanal, así que con menos de 7 días de datos no hay ni una sola rotación completa todavía. Antes de pedir resultados, confirmar con Code: (1) qué es exactamente lo que está corriendo, (2) cada cuánto rebalancea en la práctica, (3) cuándo tendría sentido pedir el primer corte de datos (probablemente no antes de 4-6 semanas para tener varias rotaciones).
 
 Pendiente aparte, sin resolver: el retorno absoluto (CAGR %) de TSMOM-canasta en el backtest in-sample (nunca se pidió, solo tenemos el Sharpe) — útil para comparar contra alternativas simples (holdear, staking) mientras se espera el forward.
+
+## Sesión 15 (2026-11-04) — Dato propio (Code sin crédito) sobre la contradicción del nivel 5 DCA
+
+Code se quedó sin crédito. Mientras tanto, se corrió un test propio (simulador casero de esta sesión, ya validado parcialmente contra datos reales de clon, no con la fidelidad κ=0,909 de REPLAY DCA) comparando max_nivel=5 (actual) vs max_nivel=4 (cortar la 5ta compra) para **clon** específicamente, con 475 entradas reales, peaje real 0,2163% RT spot.
+
+**Resultado**: cortar a nivel 4 mejora el resultado de clon en **+$656,52** (nivel5: -$2.478,80 vs nivel4: -$1.822,28). Misma dirección que el hallazgo viejo de clon6 (sesión 8, +$291,52 al cortar a 4) — **opuesta** al hallazgo agregado de REPLAY DCA (sesión 13, -$3.505 al sacar la 5ta compra, medido sobre toda la flota).
+
+**Hipótesis para cuando Code tenga crédito de nuevo**: dos pruebas independientes específicas de la familia clon (clon6 vieja, clon nueva) coinciden en que cortar ayuda; el resultado agregado de REPLAY DCA podría estar dominado por otro(s) bot(s) de la flota (boot u otros clones) donde el nivel 5 sí rescata operaciones de forma significativa, arrastrando el promedio al lado contrario. **Pregunta pendiente para Code**: ¿el -$3.505 agregado está concentrado en algún bot específico, o es parejo en toda la flota? Eso determinaría si la recomendación correcta es "cortar nivel 5 solo en la familia clon" en vez de una regla única para todos los bots.
